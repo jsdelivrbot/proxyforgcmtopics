@@ -11,11 +11,17 @@ const cors = require('cors')({
 
 var express = require('express')
 var app = express()
+var bodyParser = require('body-parser');
+
+
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 app.set('port', port)
 app.use(express.static(__dirname + '/public'))
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 
  
 function unregisteTopics1(data) {
@@ -141,6 +147,11 @@ function send(data) {
 app.get('/', function(request, response) {
   response.send('Hello    qd tu dis new  test World!')
 })
+
+app.post('/test', function(req, res) {
+   	console.log("req");
+	console.log(req);
+});
 
 app.post('/push', function(req, res) {
    if (req.method === 'PUT') {
