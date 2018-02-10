@@ -138,7 +138,11 @@ function send(data) {
   }
 }
 
-app.get('/', function(req, res) {
+app.get('/', function(request, response) {
+  response.send('Hello new test World!')
+})
+
+app.get('/push', function(req, res) {
    if (req.method === 'PUT') {
     res.status(403).send('Forbidden!');
   }
