@@ -1,7 +1,9 @@
 var express = require('express')
 var app = express()
 
-app.set('port', (process.env.PORT || 5000))
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+
+app.set('port', port)
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
