@@ -152,7 +152,8 @@ app.get('/push', function(req, res) {
   // Enable CORS using the `cors` express middleware.
   cors(req, res, () => {
     // [END usingMiddleware]
-
+console.log("req");
+console.log(req);
     // [START readQueryParam]
     let actions = req.query.data;
     // [END readQueryParam]
