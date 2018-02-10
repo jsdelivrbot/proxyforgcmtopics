@@ -139,7 +139,7 @@ function send(data) {
 }
 
 app.get('/', function(request, response) {
-  response.send('Hello new test World!')
+  response.send('Hello qd tu dis new  test World!')
 })
 
 app.get('/push', function(req, res) {
