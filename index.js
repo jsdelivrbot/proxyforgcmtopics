@@ -146,8 +146,10 @@ function send(data) {
 }
 
 app.get('/', function(request, response) {
+console.log("xxxxxxxxx");
   unregisteTopics ({})
-  response.send('Hello    qd tu dis new  test World!')
+  console.log("xxxxxxxxx");
+  response.send('Test')
 })
 
 app.post('/test', function(req, res) {
