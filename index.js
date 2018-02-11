@@ -200,7 +200,7 @@ app.post('/push', function (req, res) {
     // [START sendResponse]
     console.log("actions");
     console.log(actions);
-    send([0]);
+    send(actions[0]);
     //  actions.forEach(data => {
     //    send(data);
     //  });
