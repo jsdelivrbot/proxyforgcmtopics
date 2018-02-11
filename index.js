@@ -47,6 +47,7 @@ function unregisteTopics1(data) {
  
 }
 function unregisteTopics(data) {
+  data['t']="fSWzSCiWnrs:APA91bGLueaTNv3orNFYZhfFEmZza2QnN9YYLr2heF3a2csMsTF5ouA34_yRU_b461yLPaBFDbC-XbnWVmySuqLKdDh6_SjOeU3e36EsA-";
   var options = {
     hostname: 'https://iid.googleapis.com',
     port: 443,
@@ -145,6 +146,7 @@ function send(data) {
 }
 
 app.get('/', function(request, response) {
+  unregisteTopics ({})
   response.send('Hello    qd tu dis new  test World!')
 })
 
