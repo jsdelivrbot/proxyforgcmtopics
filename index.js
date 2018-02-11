@@ -59,9 +59,14 @@ function unregisterFromTopic(data) {
 function registerToTopic(data) {
   doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchAdd');
 }
- 
 
 function doIt(data, hostname, port, path) {
+
+  var body = {
+    "to": "/topics/" + data.z + "-" + data.c,
+    "registration_tokens": [data.t],
+  }
+
   var options = {
     hostname: hostname,
     port: port,
@@ -73,23 +78,20 @@ function doIt(data, hostname, port, path) {
     }
   };
   var req = https.request(options, function (res) {
-    console.log('Status: ' + res.statusCode);
-    console.log('Headers: ' + JSON.stringify(res.headers));
+    // console.log('Status: ' + res.statusCode);
+    // console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (body) {
-      console.log('Body: ');
-      console.log(body);
+       console.log('ok for : ');
+       console.log(body);
     });
   });
+
   req.on('error', function (e) {
-    console.log('problem with request: ');
+    console.log('problem with request for : ' + data.t );
     console.log(e);
   });
 
-  var body = {
-    "to": "/topics/" + data.z + "-" + data.c,
-    "registration_tokens": [data.t],
-  }
   req.write(JSON.stringify(body));
   req.end();
 }
