@@ -82,8 +82,7 @@ function doIt(data, hostname, port, path) {
     // console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     res.on('data', function (body) {
-       console.log('ok for : ');
-       console.log(registration);
+       console.log('ok for : ' + registration.to);
     });
   });
 
@@ -128,10 +127,11 @@ app.post('/push', function (req, res) {
     
     // console.log("actions");
     // console.log(actions);
-    
+    console.log('Starting registrations for : ' + actions[Ø].t);
     actions.forEach(data => {
         send(data);
     });
+    console.log('Ended with' + actions.length + ' registrations done.');
     res.status(200).send("ok");
      
   });
