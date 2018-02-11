@@ -135,7 +135,7 @@ app.post('/push', function (req, res) {
         }
         send(data);
     });
-    console.log('Ended with' + actions.length + ' registrations done.');
+    console.log('With ' + actions.length + ' registrations.');
     res.status(200).send("ok");
      
   });
