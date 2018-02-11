@@ -209,7 +209,7 @@ console.log(req);
 })
 
 app.listen(app.get('port'), function() {
-  console.log("Hey Node app is running at localhost:" + app.get('port'))
+  console.log("new localhost:" + app.get('port'))
 })
 
 
