@@ -78,7 +78,7 @@ function unregisterFromTopic(data) {
   doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchRemove');
 }
 
-function wregisterToTopic(data) {
+function registerToTopic(data) {
   doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchAdd');
 }
 
