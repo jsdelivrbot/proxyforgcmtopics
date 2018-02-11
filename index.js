@@ -75,48 +75,14 @@ function unregisteTopics(data) {
   req.end();
 }
 function unregisterFromTopic(data) {
-  doIt(data, 'iid.googleapis.com', 443, 'iid/v1:batchRemove');
+  doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchRemove');
 }
 
-function registerToTopic(data) {
-  doIt(data, 'iid.googleapis.com', 443, 'iid/v1:batchAdd');
+function wregisterToTopic(data) {
+  doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchAdd');
 }
 
-function toto() {
-  const querystring = require('querystring');
-  const https = require('https');
-
-  var postData = querystring.stringify({
-    'msg': 'Hello World!'
-  });
-
-  var options = {
-    hostname: 'iid.googleapis.com',
-    port: 443,
-    path: '/post.php',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': postData.length
-    }
-  };
-
-  var req = https.request(options, (res) => {
-    console.log('statusCode:', res.statusCode);
-    console.log('headers:', res.headers);
-
-    res.on('data', (d) => {
-      process.stdout.write(d);
-    });
-  });
-
-  req.on('error', (e) => {
-    console.error(e);
-  });
-
-  req.write(postData);
-  req.end();
-}
+ 
 
 function doIt1(data, url) {
   var data = {
@@ -244,7 +210,7 @@ app.post('/push', function (req, res) {
 })
 
 app.listen(app.get('port'), function () {
-  console.log("new localhost:" + app.get('port'))
+  console.log("new 1 localhost:" + app.get('port'))
 })
 
 
