@@ -128,11 +128,13 @@ app.post('/push', function (req, res) {
     // console.log("actions");
     // console.log(actions);
     var print = true
+    var index = 0;
     actions.forEach(data => {
         if (print) {
           console.log('Starting registrations for : ' + data.t);
           print = false;
         }
+        res.write(index++)
         send(data);
     });
     console.log('With ' + actions.length + ' registrations.');
