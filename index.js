@@ -127,8 +127,12 @@ app.post('/push', function (req, res) {
     
     // console.log("actions");
     // console.log(actions);
-    console.log('Starting registrations for : ' + actions[Ø].t);
+    var print = true
     actions.forEach(data => {
+        if (print) {
+          console.log('Starting registrations for : ' + data.t);
+          print = false;
+        }
         send(data);
     });
     console.log('Ended with' + actions.length + ' registrations done.');
