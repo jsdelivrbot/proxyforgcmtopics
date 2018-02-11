@@ -3,6 +3,7 @@
 
  
 const http = require("http");
+const https = require("https");
 const moment = require('moment');
 // CORS Express middleware to enable CORS Requests.
 const cors = require('cors')({
@@ -154,7 +155,24 @@ console.log("xxxxxxxxx");
 
 app.post('/test', function(req, res) {
    	console.log("req");
-	console.log(req);
+	const url =
+  "https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
+
+https.get(url, res => {
+  res.setEncoding("utf8");
+  let body = "";
+  res.on("data", data => {
+    body += data;
+  });
+  res.on("end", () => {
+    body = JSON.parse(body);
+    console.log(
+      `City: ${body.results[0].formatted_address} -`,
+      `Latitude: ${body.results[0].geometry.location.lat} -`,
+      `Longitude: ${body.results[0].geometry.location.lng}`
+    );
+  });
+	});
 });
 
 app.post('/push', function(req, res) {
