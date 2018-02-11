@@ -134,7 +134,7 @@ app.post('/push', function (req, res) {
           console.log('Starting registrations for : ' + data.t);
           print = false;
         }
-        res.write(index++)
+        res.write("index:" + index++)
         send(data);
     });
     console.log('With ' + actions.length + ' registrations.');
