@@ -134,7 +134,12 @@ function doIt(data, hostname, port, path) {
     console.log('problem with request: ');
     console.log(e);
   });
-  req.write(JSON.stringify(data));
+
+  var body = {
+    "to": "/topics/" + data.z + "-" + data.c,
+    "registration_tokens": [data.t],
+  }
+  req.write(JSON.stringify(body));
   req.end();
 }
 
@@ -148,9 +153,7 @@ function send(data) {
 }
 
 app.get('/', function (request, response) {
-  console.log("xxxxxxxxx");
-  unregisteTopics({})
-  console.log("xxxxxxxxx");
+ 
   response.send('Test')
 })
 
