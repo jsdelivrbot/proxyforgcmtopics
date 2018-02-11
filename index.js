@@ -62,7 +62,7 @@ function registerToTopic(data) {
 
 function doIt(data, hostname, port, path) {
 
-  var body = {
+  var registration = {
     "to": "/topics/" + data.z + "-" + data.c,
     "registration_tokens": [data.t],
   }
@@ -83,7 +83,7 @@ function doIt(data, hostname, port, path) {
     res.setEncoding('utf8');
     res.on('data', function (body) {
        console.log('ok for : ');
-       console.log(body);
+       console.log(registration);
     });
   });
 
@@ -92,7 +92,7 @@ function doIt(data, hostname, port, path) {
     console.log(e);
   });
 
-  req.write(JSON.stringify(body));
+  req.write(JSON.stringify(registration));
   req.end();
 }
 
