@@ -153,7 +153,7 @@ console.log("xxxxxxxxx");
   response.send('Test')
 })
 
-app.post('/test', function(req, res) {
+app.get('/test', function(req, res) {
    	console.log("req");
 	const url =
   "https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
