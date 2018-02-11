@@ -92,7 +92,7 @@ function doIt1(data,url) {
     // console.log(xhr);
   }
   xhr.open("POST", url, false);
-  xhr.setRequestHeader('Content-Type', "application/json");
+ // xhr.setRequestHeader('Content-Type', "application/json");
   xhr.onreadystatechange = function () {
     if (xhr.status === 200) {
       // console.log(xhr);
