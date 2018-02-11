@@ -1,7 +1,7 @@
 'use strict';
 
 
- 
+
 const http = require("http");
 const https = require("https");
 const moment = require('moment');
@@ -24,42 +24,41 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
- 
+
 function unregisteTopics1(data) {
-  var url = 'https://iid.googleapis.com/iid/info/' +  data.t + '?details=true'
+  var url = 'https://iid.googleapis.com/iid/info/' + data.t + '?details=true'
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
-      // console.log(xhr);
+    // console.log(xhr);
   }
   xhr.open("GET", url, false);
   xhr.setRequestHeader('Content-Type', "application/json");
   xhr.onreadystatechange = function () {
-      if (xhr.status === 200) {
-           console.log("xxxxxxxxxxx")
-           console.log(xhr.response)
-      } else {
-          console.log("Error occured while sending notification");
-          alert(JSON.stringify(xhr))
-          console.log(xhr);
-      }
+    if (xhr.status === 200) {
+      console.log("xxxxxxxxxxx")
+      console.log(xhr.response)
+    } else {
+      console.log("Error occured while sending notification");
+      alert(JSON.stringify(xhr))
+      console.log(xhr);
+    }
   };
   xhr.setRequestHeader('Authorization', 'key=AAAAOvFXwrI:APA91bGWDp8GEp5r6Zx9lFx4_O5EULRsge79tgf2D6SsH2kXSREQInwTewUzQj-jWtIrXazuBmZhHqO4eXQJ6CQKXKszLENJwHJiUIQaWwh-WAcjffjG2qEElSocOsOrI26gVB0j71uT');
   xhr.send();
- 
+
 }
 function unregisteTopics(data) {
-  data['t']="fSWzSCiWnrs:APA91bGLueaTNv3orNFYZhfFEmZza2QnN9YYLr2heF3a2csMsTF5ouA34_yRU_b461yLPaBFDbC-XbnWVmySuqLKdDh6_SjOeU3e36EsA-";
   var options = {
-    hostname: 'https://iid.googleapis.com',
+    hostname: 'iid.googleapis.com',
     port: 443,
-    path: data.t + '?details=true',
+    path: data.t,
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'key=AAAAOvFXwrI:APA91bGWDp8GEp5r6Zx9lFx4_O5EULRsge79tgf2D6SsH2kXSREQInwTewUzQj-jWtIrXazuBmZhHqO4eXQJ6CQKXKszLENJwHJiUIQaWwh-WAcjffjG2qEElSocOsOrI26gVB0j71uT'
+      'Content-Type': 'application/json',
+      'Authorization': 'key=AAAAOvFXwrI:APA91bGWDp8GEp5r6Zx9lFx4_O5EULRsge79tgf2D6SsH2kXSREQInwTewUzQj-jWtIrXazuBmZhHqO4eXQJ6CQKXKszLENJwHJiUIQaWwh-WAcjffjG2qEElSocOsOrI26gVB0j71uT'
     }
   };
-  var req = http.request(options, function(res) {
+  var req = https.request(options, function (res) {
     console.log('Status: ' + res.statusCode);
     console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
@@ -68,7 +67,7 @@ function unregisteTopics(data) {
       console.log(body);
     });
   });
-  req.on('error', function(e) {
+  req.on('error', function (e) {
     console.log('problem with request: ');
     console.log(e);
   });
@@ -76,14 +75,50 @@ function unregisteTopics(data) {
   req.end();
 }
 function unregisterFromTopic(data) {
-  doIt(data,'https://iid.googleapis.com',443,'iid/v1:batchRemove');
+  doIt(data, 'iid.googleapis.com', 443, 'iid/v1:batchRemove');
 }
 
 function registerToTopic(data) {
-  doIt(data,'https://iid.googleapis.com',443,'iid/v1:batchAdd');
+  doIt(data, 'iid.googleapis.com', 443, 'iid/v1:batchAdd');
 }
 
-function doIt1(data,url) {
+function toto() {
+  const querystring = require('querystring');
+  const https = require('https');
+
+  var postData = querystring.stringify({
+    'msg': 'Hello World!'
+  });
+
+  var options = {
+    hostname: 'iid.googleapis.com',
+    port: 443,
+    path: '/post.php',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': postData.length
+    }
+  };
+
+  var req = https.request(options, (res) => {
+    console.log('statusCode:', res.statusCode);
+    console.log('headers:', res.headers);
+
+    res.on('data', (d) => {
+      process.stdout.write(d);
+    });
+  });
+
+  req.on('error', (e) => {
+    console.error(e);
+  });
+
+  req.write(postData);
+  req.end();
+}
+
+function doIt1(data, url) {
   var data = {
     "to": "/topics/" + data.z + "_" + data.c,
     "registration_tokens": [data.t]
@@ -94,7 +129,7 @@ function doIt1(data,url) {
     // console.log(xhr);
   }
   xhr.open("POST", url, false);
- // xhr.setRequestHeader('Content-Type', "application/json");
+  // xhr.setRequestHeader('Content-Type', "application/json");
   xhr.onreadystatechange = function () {
     if (xhr.status === 200) {
       // console.log(xhr);
@@ -109,18 +144,18 @@ function doIt1(data,url) {
   xhr.send(JSON.stringify(data));
 }
 
-function doIt(data,hostname,port,path) {
+function doIt(data, hostname, port, path) {
   var options = {
     hostname: hostname,
     port: port,
     path: path,
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'key=AAAAOvFXwrI:APA91bGWDp8GEp5r6Zx9lFx4_O5EULRsge79tgf2D6SsH2kXSREQInwTewUzQj-jWtIrXazuBmZhHqO4eXQJ6CQKXKszLENJwHJiUIQaWwh-WAcjffjG2qEElSocOsOrI26gVB0j71uT'
+      'Content-Type': 'application/json',
+      'Authorization': 'key=AAAAOvFXwrI:APA91bGWDp8GEp5r6Zx9lFx4_O5EULRsge79tgf2D6SsH2kXSREQInwTewUzQj-jWtIrXazuBmZhHqO4eXQJ6CQKXKszLENJwHJiUIQaWwh-WAcjffjG2qEElSocOsOrI26gVB0j71uT'
     }
   };
-  var req = https.request(options, function(res) {
+  var req = https.request(options, function (res) {
     console.log('Status: ' + res.statusCode);
     console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
@@ -129,7 +164,7 @@ function doIt(data,hostname,port,path) {
       console.log(body);
     });
   });
-  req.on('error', function(e) {
+  req.on('error', function (e) {
     console.log('problem with request: ');
     console.log(e);
   });
@@ -146,37 +181,37 @@ function send(data) {
   }
 }
 
-app.get('/', function(request, response) {
-console.log("xxxxxxxxx");
-  unregisteTopics ({})
+app.get('/', function (request, response) {
+  console.log("xxxxxxxxx");
+  unregisteTopics({})
   console.log("xxxxxxxxx");
   response.send('Test')
 })
 
-app.get('/test', function(req, res) {
-   	console.log("req");
-	const url =
-  "https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
+app.get('/test', function (req, res) {
+  console.log("req");
+  const url =
+    "https://maps.googleapis.com/maps/api/geocode/json?address=Florence";
 
-https.get(url, res => {
-  res.setEncoding("utf8");
-  let body = "";
-  res.on("data", data => {
-    body += data;
+  https.get(url, res => {
+    res.setEncoding("utf8");
+    let body = "";
+    res.on("data", data => {
+      body += data;
+    });
+    res.on("end", () => {
+      body = JSON.parse(body);
+      console.log(
+        `City: ${body.results[0].formatted_address} -`,
+        `Latitude: ${body.results[0].geometry.location.lat} -`,
+        `Longitude: ${body.results[0].geometry.location.lng}`
+      );
+    });
   });
-  res.on("end", () => {
-    body = JSON.parse(body);
-    console.log(
-      `City: ${body.results[0].formatted_address} -`,
-      `Latitude: ${body.results[0].geometry.location.lat} -`,
-      `Longitude: ${body.results[0].geometry.location.lng}`
-    );
-  });
-	});
 });
 
-app.post('/push', function(req, res) {
-   if (req.method === 'PUT') {
+app.post('/push', function (req, res) {
+  if (req.method === 'PUT') {
     res.status(403).send('Forbidden!');
   }
   // [END sendError]
@@ -185,8 +220,8 @@ app.post('/push', function(req, res) {
   // Enable CORS using the `cors` express middleware.
   cors(req, res, () => {
     // [END usingMiddleware]
-console.log("req");
-console.log(req);
+    console.log("req");
+    console.log(req);
     // [START readQueryParam]
     let actions = req.query.data;
     // [END readQueryParam]
@@ -200,15 +235,15 @@ console.log(req);
     console.log("actions");
     console.log(actions);
     send([0]);
-  //  actions.forEach(data => {
-  //    send(data);
-  //  });
+    //  actions.forEach(data => {
+    //    send(data);
+    //  });
     res.status(200).send("ok");
     // [END sendResponse]
   });
 })
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log("new localhost:" + app.get('port'))
 })
 
