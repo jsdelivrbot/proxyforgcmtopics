@@ -53,7 +53,12 @@ function unregisteTopics(data) {
 }
 
 function unregisterFromTopic(data) {
-  doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchRemove');
+  if (data.type == 0) {
+    doIt(data, 'iid.googleapis.com', 443, '/iid/v1:batchRemove');
+  } else {
+    unregisteTopics(data)
+  }
+  
 }
 
 function registerToTopic(data) {
@@ -100,7 +105,7 @@ function doIt(data, hostname, port, path) {
 
 
 function send(data) {
-  if (data.type < 0) {
+  if (data.type <= 0) {
     unregisterFromTopic(data)
   } else {
     registerToTopic(data)
