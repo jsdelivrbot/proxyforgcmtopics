@@ -93,7 +93,7 @@ function doIt(data, hostname, port, path) {
 
   req.write(JSON.stringify(registration));
   console.log("XXXXXXXXXX")
-  console.log(option)
+  console.log(options)
   console.log(registration)
   req.end();
 }
