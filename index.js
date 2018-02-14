@@ -52,15 +52,18 @@ function unregisteTopics(data) {
       console.log("jsbody")
       console.log(jsbody)
       let topictoremove = [];
-      if (jsboby['rel'] && jsboby['rel']['topics']) {
-        var topics = jsboby['rel']['topics'];
-        var keys = Object.keys(topics);
-        keys.forEach ((topic) => {
-          if (topic.startsWith(data.z)) {
-            topictoremove.push(topic)
-          }
-        });
+      if (jsbody.rel) {
+        if (jsbody.rel.topics) {
+          var topics = jsbody.rel.topics;
+          var keys = Object.keys(topics);
+          keys.forEach ((topic) => {
+            if (topic.startsWith(data.z)) {
+              topictoremove.push(topic)
+            }
+          });
+        }
       }
+       
       console.log("topictoremove");
       console.log(topictoremove);
 
