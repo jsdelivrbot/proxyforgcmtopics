@@ -41,9 +41,16 @@ function unregisteTopics(data) {
     console.log('Status: ' + res.statusCode);
     console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
-    res.on('data', function (body) {
+    let body = "";
+    res.on('data', function (data) {
       console.log('Body: ');
-      console.log(body);
+      console.log(data);
+      body += data;
+    });
+    res.on("end", () => {
+      var jsbody = JSON.parse(body);
+      console.log("jsbody")
+      console.log(jsbody)
     });
   });
   req.on('error', function (e) {
