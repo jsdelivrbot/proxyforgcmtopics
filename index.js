@@ -58,15 +58,11 @@ function unregisteTopics(data) {
           var keys = Object.keys(topics);
           keys.forEach ((topic) => {
             if (topic.startsWith(data.z)) {
-              topictoremove.push(topic)
+              _doIt(topic, data.t,'iid.googleapis.com', 443, '/iid/v1:batchRemove');
             }
           });
         }
       }
-       
-      console.log("topictoremove");
-      console.log(topictoremove);
-
     });
   });
   req.on('error', function (e) {
@@ -91,10 +87,13 @@ function registerToTopic(data) {
 }
 
 function doIt(data, hostname, port, path) {
+  _doIt(data.z + "-" + data.c, data.t, hostname, port, path)
+}
 
+function _doIt(topic, token, hostname, port, path) {
   var registration = {
-    "to": "/topics/" + data.z + "-" + data.c,
-    "registration_tokens": [data.t],
+    "to": "/topics/" + topic,
+    "registration_tokens": [token],
   }
   
   var options = {
@@ -117,7 +116,7 @@ function doIt(data, hostname, port, path) {
   });
 
   req.on('error', function (e) {
-    console.log('problem with request for : ' + data.t );
+    console.log('problem with request for : ' + token);
     console.log(e);
   });
 
