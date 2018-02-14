@@ -25,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
  
 function unregisteTopics(data) {
+  console.log("XXXXXXXXXXXX ")
+  console.log(data)
   var options = {
     hostname: 'iid.googleapis.com',
     port: 443,
