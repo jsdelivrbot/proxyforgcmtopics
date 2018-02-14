@@ -48,10 +48,10 @@ function unregisteTopics(data) {
       body += dt;
     });
     res.on("end", () => {
-      var jsbody = JSON.parse(body);
+      let jsbody = JSON.parse(body);
       console.log("jsbody")
       console.log(jsbody)
-      var topictoremove = [];
+      let topictoremove = [];
       if (jsboby['rel'] && jsboby['rel']['topics']) {
         var topics = jsboby['rel']['topics'];
         var keys = Object.keys(topics);
