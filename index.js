@@ -42,15 +42,28 @@ function unregisteTopics(data) {
     console.log('Headers: ' + JSON.stringify(res.headers));
     res.setEncoding('utf8');
     let body = "";
-    res.on('data', function (data) {
+    res.on('data', function (dt) {
       console.log('Body: ');
-      console.log(data);
-      body += data;
+      console.log(dt);
+      body += dt;
     });
     res.on("end", () => {
       var jsbody = JSON.parse(body);
       console.log("jsbody")
       console.log(jsbody)
+      var topictoremove = [];
+      if (jsboby['rel'] && jsboby['rel']['topics']) {
+        var topics = jsboby['rel']['topics'];
+        var keys = Object.keys(topics);
+        keys.forEach ((topic) => {
+          if (topic.startsWith(data.z)) {
+            topictoremove.push(topic)
+          }
+        });
+      }
+      console.log("topictoremove");
+      console.log(topictoremove);
+
     });
   });
   req.on('error', function (e) {
