@@ -30,7 +30,7 @@ function unregisteTopics(data) {
   var options = {
     hostname: 'iid.googleapis.com',
     port: 443,
-    path: "/iid/info/" + data.t,
+    path: "/iid/info/" + data.t + "?details=true",
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
