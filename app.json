@@ -2,7 +2,7 @@
   "name": "proxyforgcmtopics",
   "description": "proxyforgcmtopics",
   "repository": "https://github.com/gw4e/proxyforgcmtopics",
-  "logo": "https://rawgit.com/heroku/node-js-sample/master/public/node.svg",
+  "logo": "https://cdn.jsdelivr.net/gh/heroku/node-js-sample/public/node.svg",
   "keywords": ["node", "express", "static"]
 }
     
